@@ -1,10 +1,10 @@
-# 🏭 Faja Transportadora Automatizada con Control de Calidad por Visión Artificial
+# Faja Transportadora Automatizada con Control de Calidad por Visión Artificial
 
 Sistema mecatrónico de clasificación en tiempo real que integra un microcontrolador **ESP32-WROVER-DEV (CAM)** en modo Access Point y procesamiento digital de imágenes en **Python + OpenCV** para detectar, inspeccionar y separar objetos según su geometría y rectangularidad.
 
 ---
 
-## 📋 Descripción del Sistema
+## Descripción del Sistema
 
 El sistema opera bajo un ciclo cerrado de inspección y actuación:
 1. **Detección de presencia:** Un sensor ultrasónico **HC-SR04** detecta la llegada de un objeto a $\le 12.0\text{ cm}$ y detiene la faja transportadora accionada por un motor DC con driver **L298N**.
@@ -16,7 +16,7 @@ El sistema opera bajo un ciclo cerrado de inspección y actuación:
 
 ---
 
-## ⚙️ Arquitectura y Flujo de Estados
+## Arquitectura y Flujo de Estados
 
 ```text
 [Faja en Marcha (Estado 0)] 
@@ -34,7 +34,7 @@ El sistema opera bajo un ciclo cerrado de inspección y actuación:
 
 ---
 
-## 🔌 Hardware y Pinout (ESP32-WROVER-DEV)
+## Hardware y Pinout (ESP32-WROVER-DEV)
 
 ### Actuadores y Sensores
 
@@ -56,7 +56,7 @@ El sistema opera bajo un ciclo cerrado de inspección y actuación:
 
 ---
 
-## 📂 Estructura del Repositorio
+## Estructura del Repositorio
 
 ```text
 ├── firmware/
@@ -69,7 +69,7 @@ El sistema opera bajo un ciclo cerrado de inspección y actuación:
 
 ---
 
-## 🚀 Instalación y Uso
+## Instalación y Uso
 
 ### 1. Firmware (ESP32)
 
