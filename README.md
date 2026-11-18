@@ -1,6 +1,3 @@
-Aquí tienes el código Markdown completo, listo para que uses el botón de **Copiar** de la esquina superior derecha del cuadro y lo pegues directo en tu `README.md` sin perder ni una barra ni un símbolo:
-
-```markdown
 # 🏭 Faja Transportadora Automatizada con Control de Calidad por Visión Artificial
 
 Sistema mecatrónico de clasificación en tiempo real que integra un microcontrolador **ESP32-WROVER-DEV (CAM)** en modo Access Point y procesamiento digital de imágenes en **Python + OpenCV** para detectar, inspeccionar y separar objetos según su geometría y rectangularidad.
