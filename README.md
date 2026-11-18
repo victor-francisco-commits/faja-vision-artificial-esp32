@@ -103,7 +103,7 @@ python vision/inspeccion_calidad.py
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 * **Microcontrolador & Firmware:** C/C++, ESP32, FreeRTOS, `esp_camera.h`, `esp_http_server.h`
 * **Visión Artificial & Concurrencia:** Python 3, OpenCV (`cv2`), NumPy, `socket`, `threading`
