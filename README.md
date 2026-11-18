@@ -1,3 +1,6 @@
+Aquí tienes el código Markdown completo, listo para que uses el botón de **Copiar** de la esquina superior derecha del cuadro y lo pegues directo en tu `README.md` sin perder ni una barra ni un símbolo:
+
+```markdown
 # 🏭 Faja Transportadora Automatizada con Control de Calidad por Visión Artificial
 
 Sistema mecatrónico de clasificación en tiempo real que integra un microcontrolador **ESP32-WROVER-DEV (CAM)** en modo Access Point y procesamiento digital de imágenes en **Python + OpenCV** para detectar, inspeccionar y separar objetos según su geometría y rectangularidad.
@@ -29,3 +32,82 @@ El sistema opera bajo un ciclo cerrado de inspección y actuación:
        │
        └──► (Timeout 5s sin aprobación)
                  └──► [Secuencia Servo 2 SG90 (Estado 2)] ──► [Faja 5s (Estado 3)] ──► Reinicia Ciclo
+
+```
+
+---
+
+## 🔌 Hardware y Pinout (ESP32-WROVER-DEV)
+
+### Actuadores y Sensores
+
+| Componente | Pin ESP32 | Función |
+| --- | --- | --- |
+| **Servo 1 (MG996R)** | `GPIO 2` | Compuerta principal de despacho ($0^\circ \rightarrow 90^\circ$) |
+| **Servo 2 (SG90)** | `GPIO 12` | Actuador auxiliar de rechazo / respaldo |
+| **Driver L298N (ENA)** | `GPIO 14` | Control de velocidad PWM (`CH 14`, `1 kHz`, 8-bit) |
+| **Driver L298N (IN1 / IN2)** | `GPIO 13` / `GPIO 15` | Control de sentido de giro del motor DC |
+| **Sensor HC-SR04 (TRIG)** | `GPIO 32` | Disparo de pulso ultrasónico |
+| **Sensor HC-SR04 (ECHO)** | `GPIO 33` | Recepción de eco (con divisor de voltaje a $3.3\text{ V}$) |
+
+### Cámara (ESP32-WROVER-KIT)
+
+* **Control:** `SIOD: 26`, `SIOC: 27`, `XCLK: 21`, `VSYNC: 25`, `HREF: 23`, `PCLK: 22`
+* **Bus de datos (D0–D7):** `GPIO 4, 5, 18, 19, 36, 39, 34, 35`
+
+> **Nota técnica:** El control PWM de ambos servomotores corre en una tarea independiente de FreeRTOS fijada al **Core 0** (`xTaskCreatePinnedToCore`) con generación de pulsos por microsegundos para evitar temblores (*jitter*) provocados por las interrupciones del Wi-Fi y la cámara.
+
+---
+
+## 📂 Estructura del Repositorio
+
+```text
+├── firmware/
+│   └── control_faja_esp32.ino     # Código Arduino: Access Point, Stream MJPEG, WebServer y FreeRTOS
+├── vision/
+│   └── inspeccion_calidad.py      # Cliente Python: Sockets TCP, OpenCV y toma de decisiones
+└── README.md
+
+```
+
+---
+
+## 🚀 Instalación y Uso
+
+### 1. Firmware (ESP32)
+
+1. Abrir `firmware/control_faja_esp32.ino` en **Arduino IDE**.
+2. Seleccionar la placa **ESP32 Wrover Module** y habilitar **PSRAM**.
+3. Cargar el código. El ESP32 creará la red Wi-Fi:
+* **SSID:** `Banda_Control_Calidad`
+* **Contraseña:** `12345678`
+* **IP Fija:** `192.168.4.1` (Puerto `80` para control HTTP, Puerto `81` para `/stream`).
+
+
+
+### 2. Visión Artificial (Python)
+
+1. Instalar las dependencias necesarias:
+```bash
+pip install opencv-python numpy
+
+```
+
+
+2. Conectar la PC a la red Wi-Fi `Banda_Control_Calidad`.
+3. Ejecutar el script de inspección:
+```bash
+python vision/inspeccion_calidad.py
+
+```
+
+
+4. Ajustar los deslizadores en la ventana **Controles** (`Brillo Caja` y `Area Minima`) según la iluminación ambiental. Presionar `q` para finalizar.
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+* **Microcontrolador & Firmware:** C/C++, ESP32, FreeRTOS, `esp_camera.h`, `esp_http_server.h`
+* **Visión Artificial & Concurrencia:** Python 3, OpenCV (`cv2`), NumPy, `socket`, `threading`
+
